@@ -230,11 +230,14 @@ def ere(data):
 
 def special_modification(dataset, event_type, role):
     assert dataset in ["ace", "aceplus", "ere"], "Invalid dataset name for special modification!"
-    if dataset == "ace" or dataset == "aceplus":
-        if event_type == "Movement.Transport" and role == "Place":
-            role = "Destination"
-        if event_type == "Life.Die" and role == "Person":
-            role = "Victim"
+    if event_type == "Movement.Transport" and role == "Place":
+        role = "Destination"
+    elif event_type == "Movement.Transport" and role == "Victim":
+        role = "Artifact"
+    elif event_type == "Life.Die" and role == "Person":
+        role = "Victim"
+    elif event_type == "Conflict.Attack" and role == "Agent":
+        role = "Attacker"
     return role
 
 
